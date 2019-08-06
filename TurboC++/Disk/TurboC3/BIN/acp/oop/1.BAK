@@ -1,0 +1,25 @@
+#include<iostream.h>
+#include<conio.h>
+class sample
+{
+	int a;
+	int b;
+	public:
+		void getdata()
+		{
+			cout<<"\n enter the numbers ";
+			cin>>a>>b;
+		}
+		void putdata()
+		{
+			cout<<"\n A = "<<a<<"\n B = "<<b;
+		}
+};
+main()
+{
+	sample s1;
+	clrscr();
+	s1.getdata();
+	s1.putdata();
+	getch();
+}

@@ -1,0 +1,126 @@
+<form (ngSubmit)="onSaveEmployee(f)" #f="ngForm">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h3>Employee Details</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <h5 style="color: red;">* Means the field is mandatary.</h5>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="form-group">
+      <div class="example-container">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Employee Email ID" [(ngModel)]="EmpID" id="EmpID" email required name="EmpID"
+            #EmpID1="ngModel">
+          <mat-error *ngIf="EmpID1.hasError('required')">
+            Email is required.
+          </mat-error>
+          <mat-error *ngIf="EmpID1.hasError('email')">
+            Invalid Email id.
+          </mat-error>
+
+
+        </mat-form-field>
+      </div>
+      <div class="example-container ">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Password" required minlength="8" maxlength="15" type="password" name="password"
+            minlength="8" [(ngModel)]="EmpPASSWORD" #EmpPASSWORD1="ngModel" id="password" name="password">
+          <mat-hint align="end">{{EmpPASSWORD1.value?.length}}/15</mat-hint>
+          <mat-error *ngIf="EmpPASSWORD1.hasError('required')">
+            Password is required.
+          </mat-error>
+          <mat-error *ngIf="!EmpPASSWORD1.hasError('required')">
+            Password must have minimum 8 character.
+          </mat-error>
+
+        </mat-form-field>
+      </div>
+      <div class="example-container">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="User name" required [(ngModel)]="EmpNAME" name="EmpNAME" #EmpNAME1="ngModel">
+          <mat-error *ngIf="EmpNAME1.hasError('required')">
+            Name is required.
+          </mat-error>
+        </mat-form-field>
+
+
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-sm-7">
+            <mat-label><b>Profile Photo:</b></mat-label>
+            <div class="form-control">
+
+              <input type="file" class="form-group" (change)="onAddPicture($event)" placeholder="Add Picture" required
+                [(ngModel)]="EmpIMG" name="EmpIMG">
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="container">
+        <div class="example-container">
+          <mat-label><b>Gender:</b></mat-label>
+          <mat-radio-group class="example-radio-group example-full-width" [(ngModel)]="EmpGENDER" name="radio">
+
+            <mat-radio-button class="example-radio-button" *ngFor="let item of genderarr" [value]="item">
+              {{item}} &nbsp;
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+      <div class="example-container">
+        <mat-form-field class="example-full-width">
+          <mat-select placeholder="City" [(ngModel)]="EmpCITY" name="city" required>
+            <mat-option *ngFor="let item of cityarr" [value]="item">
+              {{item}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+      <div class="example-container">
+        <mat-form-field class="example-full-width">
+          <span matPrefix>+91 &nbsp;</span>
+          <input type="text" matInput placeholder="Mobile No" required [(ngModel)]="EmpMOBILE" name="EmpMOBILE"
+            #EmpMOBILE1="ngModel" maxlength="10">
+
+        </mat-form-field>
+      </div>
+      <div class="example-container">
+        <mat-form-field class="example-full-width">
+          <mat-label>Address</mat-label>
+          <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" required rows="5" cols="20"
+            [(ngModel)]="EmpADDRESS" name="address"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="example-container">
+        <mat-form-field class="example-full-width">
+          <mat-select placeholder="CATEGORY" [(ngModel)]="EmpCATEGORY" required name="CATEGORY">
+            <mat-option *ngFor="let item of categoryarr " [value]="item">
+              {{item}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-md-5">
+        <button type="submit" [disabled]="!f.valid" mat-raised-button color="primary" class="form-control">Save</button>
+      </div>
+      <div class="col-md-2"></div>
+      <div class="col-md-5">
+        <button mat-raised-button class="form-control" (click)="onClickCancel()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</form>

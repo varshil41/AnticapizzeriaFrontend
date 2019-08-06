@@ -1,0 +1,76 @@
+<form (ngSubmit)="onSaveStock(f)" #f="ngForm">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h3>Edit Stock</h3>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <h5 style="color: red;">* Means the field is mandatary.</h5>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+      <div class="form-group">
+        <div class="example-container">
+
+            <mat-form-field class="example-full-width">
+                <input  spellcheck="false" autocomplete="off" matInput placeholder="Ingredient Name" [(ngModel)]="StockNAME" id="StockNAME" required name="StockNAME"
+                  #StockNAME1="ngModel">
+                <mat-error *ngIf="StockNAME1.hasError('required')">
+                  Ingredient Name is required.
+                </mat-error>
+              </mat-form-field>
+          </div>
+      </div>
+  </div>
+
+
+  <div class="container">
+      <div class="example-container">
+
+        <mat-radio-group class="example-radio-group example-full-width" [(ngModel)]="StockTYPE" name="radio">
+          <mat-radio-button (change)="onstocktype(item)" class="example-radio-button" *ngFor="let item of stocktypearr" [value]="item">
+            {{item}} &nbsp;
+          </mat-radio-button>
+        </mat-radio-group>&nbsp;&nbsp;
+
+            <mat-form-field class="example-full-width">
+                <input autocomplete="off" spellcheck="false" type="number" matInput placeholder="Ingredient Qty" [(ngModel)]="StockQTY" id="StockQTY" required name="StockQTY"
+                  #StockQTY1="ngModel">
+                <mat-error *ngIf="StockQTY1.hasError('required')">
+                  Ingredient qty is required.
+                </mat-error>
+              </mat-form-field>
+       </div>
+  </div>
+
+  <div class="container">
+      <div class="form-group">
+        <div class="example-container">
+
+            <mat-form-field class="example-full-width">
+                <input type="number" spellcheck="false" autocomplete="off" matInput placeholder="Ingredient Alert" [(ngModel)]="StockALERT1" id="StockALERT1" required name="StockALERT1"
+                  #StockALERT2="ngModel">
+                <mat-error *ngIf="StockALERT2.hasError('required')">
+                  Ingredient Alert is required.
+                </mat-error>
+              </mat-form-field>
+          </div>
+      </div>
+  </div>
+
+  <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-3">
+        <button style="width:100px;" type="submit" [disabled]="!f.valid" mat-raised-button color="primary" class="form-control">Save</button>
+        &nbsp;&nbsp;<button style="width:100px;" mat-raised-button class="form-control" (click)="onClickCancel()">Cancel</button>
+
+      </div>
+     </div>
+
+
+</form>

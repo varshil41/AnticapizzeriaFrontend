@@ -1,0 +1,66 @@
+<form (ngSubmit)="onSaveCharity(f)" #f="ngForm">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h3>Charity Details</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <h5 style="color: red;">* Means the field is mandatary.</h5>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="form-group">
+
+      <div class="example-container">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="NGO Email ID" [(ngModel)]="CharityID" name="CharityID" [disabled]="true">
+        </mat-form-field>
+      </div>
+
+
+    <div class="example-container">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="NGO Name" [(ngModel)]="CharityNAME" id="CharityNAME" required name="CharityNAME"
+            #CharityNAME1="ngModel">
+          <mat-error *ngIf="CharityNAME1.hasError('required')">
+            NGO Name is required.
+          </mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="example-container">
+      <mat-form-field class="example-full-width">
+        <mat-label>Address</mat-label>
+        <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" required rows="5" cols="20" [(ngModel)]="CharityADDRESS"
+          name="CharityADDRESS"></textarea>
+      </mat-form-field>
+    </div>
+    <br>
+
+    <div class="example-container">
+      <mat-form-field class="example-full-width">
+          <mat-label>Mobile No.</mat-label>
+          <input type="text" matInput required [(ngModel)]="CharityMOBILE" name="CharityMOBILE"
+          #CharityMOBILE1="ngModel" maxlength="10">
+        <span matPrefix>+91 &nbsp;</span>
+      </mat-form-field>
+    </div>
+
+    <br>
+    <br>
+      <div class="row">
+      <div class="col-md-2">
+        <button type="submit" [disabled]="!f.valid" mat-raised-button color="primary" class="form-control">Save</button>
+      </div>
+      <div class="col-md-1"></div>
+      <div class="col-md-2">
+        <button mat-raised-button class="form-control" (click)="onClickCancel()">Cancel</button>
+      </div>
+    </div>
+  </div>
+  </div>
+</form>

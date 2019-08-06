@@ -1,0 +1,156 @@
+<br>
+<div class="container">
+    <div class="rows">
+      <div class="col-md-3"></div>
+      <div class="col-md-6" style="text-align: center; font-size: 25px;"><b>Stock Management</b></div>
+    </div>
+    <br>
+    <br>
+    <br>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-1">
+          <button mat-raised-button color="primary" style="font-size: 20px;" (click)="onaddstock()">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New Ingredient
+          </button>
+        </div>
+        <div class="col-md-9"></div>
+        <div class="col-md-2">
+            <button mat-raised-button color="primary" style="font-size: 20px;" (click)="onplaceStock()">
+              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Place An Order
+            </button>
+        </div>
+  </div>
+</div>
+<br>
+<br>
+
+
+<p>
+<form *ngIf="flag" (ngSubmit)="onSaveStock(f)" #f="ngForm">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h3>Add Stock</h3>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <h5 style="color: red;">* Means the field is mandatary.</h5>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+        <div class="form-group">
+          <div class="example-container">
+
+              <mat-form-field class="example-full-width">
+                  <input  spellcheck="false" autocomplete="off" matInput placeholder="Ingredient Name" [(ngModel)]="StockNAME" id="StockNAME" required name="StockNAME"
+                    #StockNAME1="ngModel">
+                  <mat-error *ngIf="StockNAME1.hasError('required')">
+                    Ingredient Name is required.
+                  </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="example-container">
+
+          <mat-radio-group class="example-radio-group example-full-width" [(ngModel)]="StockTYPE" name="radio">
+            <mat-radio-button (change)="onstocktype(item)" class="example-radio-button" *ngFor="let item of stocktypearr" [value]="item">
+              {{item}} &nbsp;
+            </mat-radio-button>
+          </mat-radio-group>&nbsp;&nbsp;
+
+              <mat-form-field class="example-full-width">
+                  <input [disabled]="flagradio" autocomplete="off" spellcheck="false" type="number" matInput placeholder="Ingredient Qty" [(ngModel)]="StockQTY" id="StockQTY" required name="StockQTY"
+                    #StockQTY1="ngModel">
+                  <mat-error *ngIf="StockQTY1.hasError('required')">
+                    Ingredient qty is required.
+                  </mat-error>
+                </mat-form-field>
+         </div>
+    </div>
+
+    <div class="container">
+        <div class="form-group">
+          <div class="example-container">
+
+              <mat-form-field class="example-full-width">
+                  <input type="number" spellcheck="false" autocomplete="off" matInput placeholder="Ingredient Alert" [(ngModel)]="StockALERT" id="StockALERT" required name="StockALERT"
+                    #StockALERT1="ngModel">
+                  <mat-error *ngIf="StockALERT1.hasError('required')">
+                    Ingredient Alert is required.
+                  </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
+          <button style="width:100px;" type="submit" [disabled]="!f.valid" mat-raised-button color="primary" class="form-control">Save</button>
+          &nbsp;&nbsp;<button style="width:100px;" mat-raised-button class="form-control" (click)="onClickCancel()">Cancel</button>
+
+        </div>
+       </div>
+
+
+  </form>
+
+
+
+  <br>
+  <br>
+
+  <div class="container">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+      </mat-form-field>
+
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort multiTemplateDataRows>
+
+        <ng-container matColumnDef="StockNAME">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Ingredients Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.StockNAME}} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="StockQTY">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Ingredients Qty</th>
+          <td mat-cell *matCellDef="let element"> {{element.StockQTY}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="StockALERT">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>IngredientsAlert</th>
+          <td mat-cell *matCellDef="let element"> {{element.StockALERT}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Action">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+          <td mat-cell *matCellDef="let element">
+            <button (click)="onupdatestock(element.StockID)" mat-mini-fab color="basic">
+              <mat-icon aria-label="Example icon-button with a heart icon">create</mat-icon>
+            </button>&nbsp;&nbsp;
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20,30,40,50]" showFirstLastButtons></mat-paginator>
+      <br>
+      <br>
+
+    </div>
+
+</div>

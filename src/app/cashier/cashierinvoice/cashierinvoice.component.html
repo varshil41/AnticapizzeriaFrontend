@@ -1,0 +1,194 @@
+<label><b>Select table for generating bill</b></label>
+<div class = "container">
+  <div class = "rows" style="margin-top:10px; margin-left:0px;">
+    <div class="col-md-0 col-sm-1"  *ngFor="let item of tableNo" style="margin-left:30px;">
+      <button (click)="onTableClick(item)" mat-raised-button color="accent" style="height:50px; margin:5px;">Table No.{{item}}</button>
+   </div>
+  </div>
+</div>
+
+  <div class="container" *ngIf="flag==false">
+    <div class = "rows">
+      <div class="col-md-2"></div>
+      <div class="col-md-7">
+          <h1>
+          <label><p style="font-size:30px;">{{message}}</p></label>
+        </h1>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+
+    <div class="rows">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+            <button mat-fab color="warn" (click)="onReject()">
+              <mat-icon>close</mat-icon>
+            </button>
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+  </div>
+
+   <html lang="en">
+  <head>
+     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="Invoicebus Invoice Template">
+    <meta name="author" content="Invoicebus">
+
+    <meta name="template-hash" content="ff0b4f896b757160074edefba8cfab3b">
+
+     <link rel="stylesheet" href="src/assets/css/style.css">
+   </head>
+  <body *ngIf="length==1 && flag">
+    <div id="container" style="margin-top:10px;">
+       <div class="invoice-top">
+         <section id="memo">
+          <div class="logo">
+            <img src="http://localhost:3000/images/logo.jpg" height=60 width=120 style="border-radius: 20px" />
+          </div>
+
+          <div class="company-info">
+            <span class="company-name">Buddy's Pizza</span>
+
+            <span class="spacer"></span>
+            <div>105-106,Kairos,Near Manav Mandir</div>
+            <span class="clearfix"></span>
+            <div>Gurukul,Ahmedabad-380052,</div>
+
+            <span class="clearfix"></span>
+
+            <div>9925469600</div>
+            <div>Parth Joshi - </div>
+          </div>
+
+        </section>
+
+        <section id="invoice-info">
+          <div>
+          <span style="font-size:20px;">Invoice Date :- {{date | date}}</span>
+          </div>
+
+          <span class="clearfix"></span>
+
+          <section id="invoice-title-number">
+          <div>
+          <span style="font-size:20px;">&nbsp;&nbsp;Invoice :- {{invoiceNo}}</span>
+          </div>
+
+          </section>
+        </section>
+
+        <!-- <section id="client-info">
+          <span>bill_to_label</span>
+          <div>
+            <span class="bold">client_name</span>
+          </div>
+
+          <div>
+            <span>client_address</span>
+          </div>
+
+          <div>
+            <span>client_city_zip_state</span>
+          </div>
+
+          <div>
+            <span>client_phone_fax</span>
+          </div>
+
+          <div>
+            <span>client_email</span>
+          </div>
+
+          <div>
+            <span>client_other</span>
+          </div>
+        </section>
+ -->
+         <div class="clearfix"></div>
+      </div>
+
+      <div class="clearfix"></div>
+
+      <div class="invoice-body">
+        <section id="items">
+
+          <table cellpadding="0" cellspacing="0">
+
+            <tr>
+              <th></th>
+              <th>Item</th>
+              <th>Qty</th>
+              <th>Price</th>
+              <th>Total</th>
+            </tr>
+
+            <tr  *ngFor="let item of billarr;" >
+              <td>1</td>
+              <td>{{item.itemNAME}}</td>
+              <td>{{item.InvoiceDetQTY}}</td>
+              <td>{{item.itemPRICE}}</td>
+              <td>{{item.InvoiceDetPrice}}</td>
+            </tr>
+
+          </table>
+
+        </section>
+
+        <section id="sums">
+
+          <table cellpadding="0" cellspacing="0">
+            <tr>
+              <th>Amount_Subtotal</th>
+              <td>{{subtotal}}</td>
+              <td></td>
+            </tr>
+
+            <tr data-iterate="tax">
+              <th>S.GST</th>
+              <td>(2.5%) 25</td>
+              <td></td>
+            </tr>
+
+            <tr data-iterate="tax">
+                <th>C.GST</th>
+                <td>(2.5%) 25</td>
+                <td></td>
+            </tr>
+
+            <tr class="amount-total">
+              <th>Total</th>
+              <td>{{grandtotal}}</td>
+              <td>
+               </td>
+            </tr>
+
+            <tr class="amount-total">
+                <th></th>
+                <td>
+                    <button  mat-raised-button color="primary" style="font-size: 20px;">
+                        <span aria-hidden="true"></span>Print Bill
+                      </button>
+
+                </td>
+                <td>
+                 </td>
+              </tr>
+
+          </table>
+
+        </section>
+       </div>
+
+     </div>
+
+  </body>
+
+ </html>
+
+
+
+

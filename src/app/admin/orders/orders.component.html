@@ -1,0 +1,47 @@
+<mat-tab-group dynamicHeight (selectedTabChange)="tabClick($event)">
+  <mat-tab *ngFor="let item of orderarr" label={{item}}>
+  </mat-tab>
+</mat-tab-group>
+
+<div class="container" *ngIf="order.length>0">
+  <br>
+  <br>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort multiTemplateDataRows>
+      <ng-container matColumnDef="index">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Index</th>
+        <td mat-cell *matCellDef="let element;let i = dataIndex;">{{i+1}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="item">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Item</th>
+        <td mat-cell *matCellDef="let element"> {{element.itemNAME}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="qty">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Qty</th>
+        <td mat-cell *matCellDef="let element"> {{element.OrderQty}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Price</th>
+        <td mat-cell *matCellDef="let element"> {{element.itemPRICE}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="tableNo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Table No</th>
+        <td mat-cell *matCellDef="let element"> {{element.TableNO}} </td>
+      </ng-container>
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+    </tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  <br>
+
+  <br>
+  </div>
+
+

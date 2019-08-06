@@ -1,8 +1,12 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource } from "@angular/material";
-import { CategorySerService } from '../../sevices/category-ser.service';
+import { MatPaginator, MatSort, MatTableDataSource, MatDialogRef, MatDialog,MAT_DIALOG_DATA } from "@angular/material";
+import { CategorySerService } from '../../services/category-ser.service';
 import { Category } from '../category/category';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { SelectionModel } from '@angular/cdk/collections';
+import { Subject } from 'rxjs';
+import { PopupComponent } from 'src/app/category/popup/popup.component';
+import { takeUntil } from 'rxjs/operators';
 
 
 @Component({
@@ -23,7 +27,10 @@ export class CategoryComponent implements OnInit {
   flag:boolean = false;
   delArr:Category[]=[];
   i:number;
-  constructor(private _send:Router,private _ser:CategorySerService) { }
+  selection = new SelectionModel<Category>(true, []);
+  destroy=new Subject<any>();
+  currentDialog:MatDialogRef<PopupComponent>=null;
+  constructor(public activate_rout:ActivatedRoute,private _send:Router,private _ser:CategorySerService,private dialog: MatDialog) { }
   displayedColumns: string[] = ["select","name","Action"];
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
@@ -39,32 +46,36 @@ export class CategoryComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   onEdit(item:Category){
-    this._send.navigate(["/catedit", item.CategoryID]);
+    this._send.navigate(["menu/catedit", item.CategoryID]);
   }
   onsingledelete(item:Category){
-      this._ser.deleteOneCategory(item.CategoryID).subscribe(
-        (data:any)=>{
+  if(confirm("Are you sure you want to delete?")){
+    this._ser.deleteOneCategory(item.CategoryID).subscribe(
+      (data:any)=>{
+        if(this.catarr.find(x=>x.CategoryID==item.CategoryID)){
           this.catarr.splice(this.catarr.indexOf(item),1);
-          this.dataSource.data=this.catarr;
         }
-      );
+        this.dataSource.data=this.catarr;
+      }
+    );
+    }
   }
-
   onAddOnOff()
   {
     if(this.flag)
     {
       this.flag=false;
+      this.catname="";
     }
     else
     {
       this.flag=true;
     }
+    this.catname="";
   }
   onAdd(){
-    console.log(this.catname);
   if (this.catarr.find(x => x.CategoryNAME == this.catname)) {
-    alert("Already Exits");
+    alert("This Category Is Already Exits");
   }
 
    else
@@ -74,8 +85,9 @@ export class CategoryComponent implements OnInit {
       .addCategory(new Category(this.CategoryID, this.catname))
       .subscribe((data:any) => {
         this.catarr.push(new Category(data.insertId, this.catname));
-        alert("added");
+        alert("Category Added Successfully");
         this.dataSource.data = this.catarr;
+        this.catname='';
       });
     }
     else{
@@ -91,6 +103,7 @@ checkChange(item: Category) {
   }
 }
 deleteAll(){
+  if(confirm("Are you sure you want to delete?")){
   this._ser.deleteAllCategory(this.delArr).subscribe(
 
   (data:any)=>{
@@ -105,5 +118,36 @@ deleteAll(){
   this.dataSource.data=this.catarr;
   }
 )};
+}
+
+// onsingledelete(item:Category)
+// {
+//   this.activate_rout.params.pipe(takeUntil(this.destroy)).subscribe(params=>{
+//     if(this.currentDialog)
+//      {
+//        this.currentDialog.close();
+//      }
+//     this.currentDialog=this.dialog.open(PopupComponent,{
+//       data:{fk_email_id:this.fk_email_id}
+//     })
+//     this.currentDialog.afterClosed().subscribe(result=>{
+//       console.log("this close");
+//      this._route.navigate(['/feedbackreply',this.fk_email_id]);
+
+//     })
+//     })
+
+  //   this._ser.deleteOneCategory(item.CategoryID).subscribe(
+  //     (data:any)=>{
+  //       if(this.catarr.find(x=>x.CategoryID==item.CategoryID)){
+  //         this.catarr.splice(this.catarr.indexOf(item),1);
+  //       }
+  //       this.dataSource.data=this.catarr;
+  //     }
+  //   );
+  //    }
+  // ngOnDestroy(){
+  //   this.destroy.next();
+  // }
 }
 

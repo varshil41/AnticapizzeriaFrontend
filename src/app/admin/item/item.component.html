@@ -1,0 +1,93 @@
+<br>
+<div class="container">
+    <div class="rows">
+      <div class="col-md-3"></div>
+      <div class="col-md-6" style="text-align: center; font-size: 25px;"><b>Item Management</b></div>
+    </div>
+    <br>
+    <br>
+    <br>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-sm-8">
+      </div>
+      <div class="col-md-4 col-sm-4">
+        <button mat-raised-button color="primary" style="font-size: 20px;" (click)="onAddnewItem()">
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New Item
+        </button>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+
+  <div class="container">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+    </mat-form-field>
+
+    <table mat-table [dataSource]="dataSourceofItem" class="mat-elevation-z8" matSort multiTemplateDataRows>
+      <ng-container matColumnDef="checkbox">
+        <th mat-header-cell *matHeaderCellDef > all </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-checkbox (change)="onCheckchange(element)" color="warn"></mat-checkbox>
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="itemNAME">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Item Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.itemNAME}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="itemPRICE">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Item Price </th>
+        <td mat-cell *matCellDef="let element"> {{element.itemPRICE}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="categoryNAME">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Item Category </th>
+        <td mat-cell *matCellDef="let element"> {{element.categoryNAME}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="itemTYPE">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Item Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.itemTYPE}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Action">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-mini-fab color="basic" (click)="onEditItem(element.itemID)">
+            <mat-icon aria-label="Example icon-button with a heart icon">create</mat-icon>
+          </button>&nbsp;&nbsp;
+          <button mat-mini-fab color="primary" (click)="onDeleteOneItem(element)">
+            <mat-icon aria-label="Example icon-button with a heart icon">delete</mat-icon>
+          </button>&nbsp;&nbsp;
+          <button (click)="onDetails(element.itemID)" style="border-radius:15px;" mat-flat-button color="primary">More Details</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsofItem"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnsofItem;">
+      </tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    <br>
+
+    <br>
+
+  </div>
+
+  <br>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 col-sm-5">
+        <button mat-raised-button color="warn" style="font-size: 20px;" [disabled]="delitem.length==0" (click)="onDeleteAllItem()">
+          <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete
+        </button>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,29 @@
+<br>
+<br>
+<div class="container">
+  <div class="list-group-item">
+    <div class="container">
+      <div class="rows" *ngFor="let item of charity">
+        <div class="rows">
+          <div class="col-md-10 col-sm-8">
+            <mat-card
+              ><h3> Charity Name:{{item.CharityNAME}}</h3></mat-card
+            >
+            <mat-card
+              ><h4>Mobile : {{item.CharityMOBILE}}</h4>
+              <h4>Address:{{item.CharityADDRESS}}</h4></mat-card
+            >
+          </div>
+
+
+          <div class="col-md-2 col-sm-4">
+            <button style="margin-top:50px;" mat-fab color="primary" (click)="onsend(item.CharityID)">
+              <mat-icon>email</mat-icon>
+            </button>
+
+          </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>

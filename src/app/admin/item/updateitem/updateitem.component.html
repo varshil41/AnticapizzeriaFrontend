@@ -1,0 +1,162 @@
+<form (ngSubmit)="onSaveItem(f)" #f="ngForm">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h3>Item Details</h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <h5 style="color: red;">* Means the field is mandatary.</h5>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="form-group">
+        <div class="example-container">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Item Name" [(ngModel)]="itemNAME" id="itemNAME" required name="itemNAME"
+              #itemNAME1="ngModel">
+            <mat-error *ngIf="itemNAME1.hasError('required')">
+              Item Name is required.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="example-container ">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Price" required type="number" name="itemPRICE" [(ngModel)]="itemPRICE"
+              #itemPRICE1="ngModel" id="itemPRICE" name="itemPRICE">
+            <mat-error *ngIf="itemPRICE1.hasError('required')">
+              price is required.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <br>
+        <div class="container">
+          <div class="example-container">
+            <mat-label><b>Type:</b></mat-label>
+            <mat-radio-group class="example-radio-group example-full-width" [(ngModel)]="itemTYPE" name="radio">
+              <mat-radio-button class="example-radio-button" *ngFor="let item of itemtypearr" [value]="item">
+                {{item}} &nbsp;
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 col-sm-7">
+              <mat-label><b>Item Photo:</b></mat-label>
+              <br>
+              <img src="http://localhost:3000/images/ItemImages/{{itemIMG}}" height="150" width="130">
+              <div class="form-control">
+
+                <input type="file" class="form-group" (change)="onAddPicture($event)" placeholder="Add Picture">
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-5 col-sm-6">
+              <mat-label><b>Ingredients:</b></mat-label>
+              <br>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4 col-sm-5">
+              <div class="example-container">
+                <mat-form-field class="example-full-width" style="width:100%;">
+                  <mat-select placeholder="Ingredients Name" [(ngModel)]="itemINGREDIENTSNAME" name="itemINGREDIENTSNAME">
+                    <mat-option *ngFor="let item of ingredientnamearr" [value]="item.StockNAME">
+                      {{item.StockNAME}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-5">
+              <div class="example-container">
+                <mat-form-field class="example-full-width" style="width:100%;">
+                  <mat-select placeholder="Ingredients Unit" [(ngModel)]="itemINGREDIENTSUnit" name="itemINGREDIENTSUnit">
+                    <mat-option *ngFor="let item of ingredientunitarr" [value]="item">
+                      {{item}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-2 col-sm-2">
+              <button mat-mini-fab color="primary" (click)="onAddIngredients()" [disabled]="itemINGREDIENTSNAME=='' || itemINGREDIENTSUnit==0">
+                <mat-icon aria-label="Example icon-button with a heart icon">done_outline</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="container">
+        <div class="row">
+          <div class="col-md-2"></div>
+          <div class="col-md-4"><mat-label><b>Ingredients Used:</b></mat-label></div>
+
+        </div>
+      </div>
+      <br>
+        <div class="container">
+          <table mat-table [dataSource]="dataSourceOfIngredient" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="IngredientName">
+              <th mat-header-cell *matHeaderCellDef> Ingredient Name </th>
+              <td mat-cell *matCellDef="let element"> {{element.itemINGREDIENTSNAME}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="IngredientUnit">
+              <th mat-header-cell *matHeaderCellDef> Ingredient Unit (gm) </th>
+              <td mat-cell *matCellDef="let element"> {{element.itemINGREDIENTSUNIT}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsOfIngredient"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsOfIngredient;"></tr>
+          </table>
+
+        </div>
+
+
+
+        <div class="example-container">
+          <mat-form-field class="example-full-width">
+            <mat-select placeholder="Category" [(ngModel)]="CategoryID" name="CategoryID" required>
+              <mat-option *ngFor="let item of categoryarr" [value]="item.CategoryID" value="item.categoryID">
+                {{item.CategoryNAME}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+
+        <div class="example-container">
+          <mat-form-field class="example-full-width">
+            <mat-select placeholder="Preparation Time" [(ngModel)]="itemPREPARETIME" name="itemPREPARETIME" required>
+              <mat-option *ngFor="let item of itemPREPARETIMEarr" [value]="item">
+                {{item}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-md-5">
+          <button type="submit" [disabled]="!f.valid" mat-raised-button color="primary" class="form-control">Save</button>
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-5">
+          <button mat-raised-button class="form-control" (click)="onClickCancel()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </form>

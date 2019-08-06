@@ -2,14 +2,23 @@
 <b style="font-size: 20px;"><u>Edit Current Category Name</u></b>
 <br>
 <br>
-<label>Current Category Name :</label>
-<div class="form-group"><input class="form-control" [(ngModel)]="catname" disabled="true"></div>
-<br>
-<br>
-<label>Enter New Category Name:</label>
-<div class="form-group"><input class="form-control" [(ngModel)]="newcatname"></div>
+
+<form class="example-form">
+    <label style="font-size: 18px;">Current Category Name :</label>
+    <mat-form-field class="example-full-width">
+      <b><input matInput name="catname"[(ngModel)]="catname" disabled="true"></b>
+    </mat-form-field>
+    <br>
+    <br>
+    <label style="font-size: 18px;">Enter New Category Name:</label>
+    <mat-form-field class="example-full-width">
+        <input matInput name="newcatname" [(ngModel)]="newcatname">
+      </mat-form-field>
+</form>
+<!-- <label>Enter New Category Name:</label>
+<div class="form-group"><input class="form-control" [(ngModel)]="newcatname"></div> -->
 <br>
   <div class="col-md-4">
-  <button (click)="onSave()" mat-raised-button color="primary">Save</button></div>
+  <button (click)="onSave()" mat-raised-button color="primary" [disabled]= "(newcatname=='')">Save</button></div>
   <div class="col-md-6">
   <button (click)="onBack()" mat-raised-button color="primary">Back</button></div>

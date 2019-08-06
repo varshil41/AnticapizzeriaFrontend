@@ -1,0 +1,42 @@
+#include<stdio.h>
+#include<conio.h>
+#include<graphics.h>
+#include<math.h>
+int round(float a)
+{
+	int x=a+1;
+	return x;	;
+}
+void dda(int xa,int ya,int xb,int yb)
+{
+	int dx,dy,steps,xincr,yincr,i,x=xa,y=ya;
+	dx=abs(xb-xa);
+	dy=abs(yb-ya);
+	if(dx>dy)
+	{
+	       steps=dx;
+	}
+	else
+	{
+		steps=dy;
+	}
+	xincr=dx/steps;
+	yincr=dy/steps;
+	putpixel(x,y,RED);
+	for(i=0;i<steps;i++)
+	{
+		x=x+xincr;
+		y=y+yincr;
+		putpixel(x,round(y),RED);
+	}
+}
+void main()
+{
+	int gd=DETECT,gm;
+	clrscr();
+	initgraph(&gd,&gm,"c:/turboc3/bgi");
+	dda(100,50,200,150);
+	dda(110,50,210,150);
+	dda(130,50,230,150);
+	getch();
+}

@@ -1,0 +1,52 @@
+<div class = "container">
+
+    <div class="row">
+       <div class="col-md-4">
+             <h3>Item Details</h3>
+       </div>
+    </div>
+
+    <div class = "row">
+      <div class = "col-md-5"></div>
+      <div class = "col-md-5">
+        <img src="http://localhost:3000/images/ItemImages/{{itemIMG}}" height="150" width="130">
+      </div>
+    </div>
+
+    <br>
+    <br>
+    <div class = "row">
+      <div class = "col-md-3" style = "font-size:23px;"><b>Item Name</b> </div>
+      <div class = "col-md-5"><p style = "font-size:23px;">:- {{itemNAME}}</p></div>
+    </div>
+
+    <div class = "row">
+      <div class = "col-md-3" style = "font-size:23px;"><b>Item Price</b></div>
+      <div class = "col-md-5"><p style = "font-size:23px;">:- {{itemPRICE}}</p></div>
+    </div>
+
+    <div class = "row">
+        <div class = "col-md-3" style = "font-size:23px;"><b>Item Category</b></div>
+        <div class = "col-md-5"><p style = "font-size:23px;">:- {{itemCATEGORY}}</p></div>
+    </div>
+
+    <div class = "row">
+        <div class = "col-md-3" style = "font-size:23px;"><b>Item Type</b></div>
+        <div class = "col-md-5"><p style = "font-size:23px;">:- {{itemTYPE}}</p></div>
+    </div>
+
+    <div class = "row">
+        <div class = "col-md-3" style = "font-size:23px;"><b>Item Preparation</b></div>
+        <div class = "col-md-5"><p style = "font-size:23px;">:- {{itemPREPARETIME}}</p></div>
+    </div>
+
+    <div class = "row">
+        <div class = "col-md-3" style = "font-size:23px;"><b>Item Ingredients</b></div>
+        <div class = "col-md-5">:- <ul style = "font-size:23px;">
+          <li *ngFor="let item of itemINGREDIENTSDETAIL">
+              {{item.itemINGREDIENTSNAME}}--{{item.itemINGREDIENTSUNIT}}(gm.)
+          </li>
+        </ul></div>
+    </div>
+
+  </div>

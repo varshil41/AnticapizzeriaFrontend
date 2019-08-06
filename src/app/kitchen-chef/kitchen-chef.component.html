@@ -1,0 +1,300 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <!-- <a class="navbar-brand" href="#">WebSiteName</a> -->
+      <img
+        src="http://localhost:3000/images/logo.jpg"
+        height="60"
+        width="120"
+        style="border-radius: 20px"
+      />&nbsp;&nbsp;&nbsp;&nbsp;
+    </div>
+    <div>
+      <button
+        style="margin-left: 500px;width: 250px;font-size: 30px; margin-top: 12px;"
+        class="material-icons"
+        (click)="onAddOnOff()"
+      >
+        add_comment &nbsp;<mat-label style="color:black;font-size: 30px;"
+          >ADD ITEM</mat-label
+        >
+      </button>
+      <button
+        class="btn navbar-btn btn-lg"
+        (click)="onlogout()"
+        style="background-color: transparent; color: white;font-size: 25px;margin-left: 400px;"
+      >
+        Logout
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="container" *ngIf="flag">
+  <div class="row">
+    <div class="col-md-4 col-sm-5">
+      <div class="example-container">
+        <mat-label style="font-size:20px;font-weight: bolder;"
+          >Select Item Name:</mat-label
+        >
+        <mat-form-field class="example-full-width" style="width:100%;">
+          <mat-select
+            placeholder="Item Name"
+            [(ngModel)]="itemID"
+            name="itemID"
+          >
+            <mat-option *ngFor="let item of itemarr" [value]="item.itemID">
+              {{ item.itemNAME }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="col-md-4 col-sm-5">
+      <div class="example-container">
+        <mat-label style="font-size:20px;font-weight: bolder;"
+          >Select Item Quantity:</mat-label
+        >
+        <mat-form-field class="example-full-width" style="width:100%;">
+          <mat-select
+            placeholder="Quantity"
+            [(ngModel)]="itemqty"
+            name="itemqty"
+          >
+            <mat-option *ngFor="let item of itemqtyarr" [value]="item">
+              {{ item }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="col-md-2 col-sm-2">
+      <button
+        mat-mini-fab
+        color="primary"
+        (click)="onAddStock()"
+        [disabled]="itemID == 0 || itemqty == 0"
+      >
+        <mat-icon aria-label="Example icon-button with a heart icon"
+          >done_outline</mat-icon
+        >
+      </button>
+    </div>
+  </div>
+</div>
+<br />
+
+<!-- <div class="container">
+  <div class="row" style="margin-left:-100px;">
+    <div class="col-md-1">
+      <div class="row" style="width:200px;">
+        <h3><p style="text-align:center;">Pending Orders</p></h3>
+      </div>
+      <div
+        class="row"
+        *ngFor="let item of Orderarr; let i = index"
+        style="width:200px;"
+      >
+        <div class="list-group-item">
+          <div class="container">
+            <div class="rows">
+              <div class="rows">
+                <div class="col-md-5 col-sm-4">
+                  <mat-card
+                    ><h3>Name: {{ item.itemNAME }}</h3></mat-card
+                  >
+                  <mat-card
+                    ><h4>Remarks: {{ item.OrderREMARK }}</h4>
+                    <h4>Quantity: {{ item.OrderQty }}</h4>
+                  </mat-card>
+                </div>
+                <div class="col-md-2 col-sm-4">
+                  <button
+                    style="margin-top:40px;margin-left: 10px;"
+                    mat-fab
+                    color="primary"
+                    (click)="onAccept(item, i)"
+                  >
+                    <mat-icon>check</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6"></div>
+    <div class="col-md-1">
+      <div class="row" style="width:625px;">
+        <h3><p style="text-align:center;">Process Orders</p></h3>
+      </div>
+      <div
+        class="row"
+        *ngFor="let item of processarr; let i = index"
+        style="width:625px;"
+      >
+        <div class="list-group-item">
+          <div class="container">
+            <div class="rows">
+              <div class="rows">
+                <div class="col-md-5 col-sm-4">
+                  <mat-card
+                    ><h3>Name: {{ item.itemNAME }}</h3></mat-card
+                  >
+                  <mat-card
+                    ><h4>Remarks: {{ item.OrderREMARK }}</h4></mat-card
+                  >
+
+                </div>
+                <div class="col-md-2 col-sm-4">
+                  <button
+                    style="margin-top:40px;margin-left: 10px;"
+                    mat-fab
+                    color="primary"
+                    (click)="onProcess(item, i)"
+                  >
+                    <mat-icon>hourglass_empty</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div >
+  <div class="row" >
+    <div class="col-md-3" >
+      <div class="row">
+        <h3><p style="text-align:center;">Pending Orders</p></h3>
+      </div>
+      <div
+        class="row"
+        *ngFor="let item of Orderarr; let i = index"
+      >
+        <div class="list-group-item">
+          <div class="container">
+            <div class="rows">
+              <div class="rows">
+                <div class="col-md-3 col-sm-4">
+                  <mat-card
+                    ><h4>Name: {{ item.itemNAME }}</h4></mat-card
+                  >
+                  <mat-card
+                    ><h5>Remarks: {{ item.OrderREMARK }}</h5>
+                    <h5>Quantity: <b>{{ item.OrderQty }}</b></h5>
+                    </mat-card>
+
+                </div>
+                <div class="col-md-2 col-sm-4">
+                  <button
+                    style="margin-top:40px;margin-left: -15px;"
+                    mat-fab
+                    color="primary"
+                    (click)="onAccept(item, i)"
+                  >
+                  <mat-icon>check</mat-icon>
+                  </button>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<div class="col-md-1"></div>
+  <div class="col-md-3">
+    <div class="row">
+      <h3><p style="text-align:center;">Process Orders</p></h3>
+    </div>
+    <div
+        class="row"
+        *ngFor="let item of processarr; let i = index"
+      >
+        <div class="list-group-item">
+          <div class="container">
+            <div class="rows">
+              <div class="rows">
+                <div class="col-md-3 col-sm-4">
+                  <mat-card
+                    ><h4>Name: {{ item.itemNAME }}</h4></mat-card
+                  >
+                  <mat-card
+                    ><h5>Remarks: {{ item.OrderREMARK }}</h5>
+                    <h5>Quantity: <b>{{ item.OrderQty }}</b></h5>
+                    </mat-card
+                  >
+                </div>
+                <div class="col-md-2 col-sm-4">
+                  <button
+                    style="margin-top:20px;margin-left: -15px;"
+                    mat-fab
+                    color="primary"
+                    (click)="onProcess(item, i)"
+                  >
+                    <mat-icon>hourglass_empty</mat-icon>
+                  </button>
+                  </div>
+                  <div class="col-md-1 col-sm-2">
+                  <button
+                    style="margin-top:100px;margin-left: -205px;"
+                    mat-fab
+                    color="primary"
+                    (click)="retToPen(item, i)"
+                  >
+                    <mat-icon>autorenew</mat-icon>
+                  </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  <div class="col-md-1"></div>
+  <div class="col-md-3">
+    <div class="row">
+      <h3><p style="text-align:center;">Ready Orders</p></h3>
+    </div>
+    <div
+        class="row"
+        *ngFor="let item of servedarr; let i = index" style="width:100%"
+      >
+        <div class="list-group-item">
+          <div class="container">
+            <div class="rows">
+              <div class="rows">
+                <div class="col-md-3 col-sm-4">
+                  <mat-card
+                    ><h4>Name: {{ item.itemNAME }}</h4></mat-card
+                  >
+                  <mat-card
+                    ><h5>Remarks: {{ item.OrderREMARK }}</h5>
+                    <h5>Quantity: <b>{{ item.OrderQty }}</b></h5>
+                    </mat-card
+                  >
+                </div>
+                <div class="col-md-2 col-sm-4">
+                  <!-- <button
+                    style="margin-top:40px;margin-left: -2px;"
+                    mat-fab
+                    color="primary"
+                    (click)="onProcess(item, i)"
+                  >
+                    <mat-icon>hourglass_empty</mat-icon>
+                  </button> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+</div>

@@ -1,3 +1,9 @@
+<!-- <div class=row>
+  <div class=col-md-2>
+    <app-menu></app-menu>
+  </div>
+  <div class=col-md-10></div>
+</div> -->
 <br>
 <div class="container">
     <div class="rows">
@@ -5,11 +11,13 @@
       <div class="col-md-6" style="text-align: center; font-size: 25px;"><b>Category Management</b></div>
     </div>
     <br>
+    <br>
+    <br>
     <div class="rows">
         <div class="col-md-8"></div>
         <div class="col-md-4">
-            <button mat-flat-button color="primary" (click)="onAddOnOff()">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>      ADD NEW CATEGORY
+            <button mat-flat-button color="primary" (click)="onAddOnOff()" style="font-size: 20px;">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>      Add New Category
               </button>
         </div>
       </div>
@@ -19,14 +27,15 @@
 <div *ngIf="flag" class="container">
     <form class="example-form">
         <mat-form-field class="example-full-width1">
-          <input name="CategoryNAME" matInput placeholder="Category Name" value="" [(ngModel)]="catname" required>
+          <input name="CategoryNAME" matInput placeholder="Category Name" value="" [(ngModel)]="catname" spellcheck="false" autocomplete="off">
         </mat-form-field>
         <br>
         <div class="rows">
-          <div class="col-md-3"></div>
-          <div class="col-md-4">
-            <button (click)="onAdd()" mat-raised-button color="primary">Save</button></div>
-            <div class="col-md-4">
+          <div class="col-md-2">
+          <div class="col-md-0">
+            <button (click)="onAdd()" mat-raised-button color="primary" [disabled]= "(catname=='')">Save</button></div>
+          </div>
+            <div class="col-md-8">
             <button (click)="flag=false" mat-raised-button color="primary" >Cancel</button>
             </div>
         </div>
@@ -34,44 +43,58 @@
 </div>
 <br>
 <br>
-<mat-form-field>
-  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Category">
-</mat-form-field>
 
-<div class="mat-elevation-z8">
 
-  <table mat-table [dataSource]="dataSource" matSort>
-    <ng-container matColumnDef="select">
-      <th mat-header-cell *matHeaderCellDef  mat-sort-header> </th>
-      <td mat-cell *matCellDef="let row">
-      <input type="checkbox" (change)="checkChange(row)">
+    <div class="container">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Category">
+      </mat-form-field>
+
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort multiTemplateDataRows>
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef > all </th>
+          <td mat-cell *matCellDef="let element">
+            <mat-checkbox (change)="checkChange(element)" color="warn"></mat-checkbox>
+          </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Category Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.CategoryNAME}} </td>
+        </ng-container>
+
+
+    <ng-container matColumnDef="Action">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-mini-fab color="basic" (click)="onEdit(element)">
+          <mat-icon aria-label="Example icon-button with a heart icon">create</mat-icon>
+        </button>&nbsp;&nbsp;
+        <button mat-mini-fab color="primary" (click)="onsingledelete(element)">
+          <mat-icon aria-label="Example icon-button with a heart icon">delete</mat-icon>
+        </button>
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
-      <td mat-cell *matCellDef="let row"> {{row.CategoryNAME}} </td>
-    </ng-container>
-
-     <ng-container matColumnDef="Action">
-      <th mat-header-cell *matHeaderCellDef>Action</th>
-      <td mat-cell *matCellDef="let row">
-        <mat-icon (click)="onEdit(row)">edit</mat-icon>&nbsp;&nbsp;&nbsp;  | &nbsp;&nbsp;
-        <mat-icon (click)="onsingledelete(row)">delete</mat-icon>
-        </td>
-    </ng-container>
-
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;">
-    </tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+      </tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    <br>
 
-  </table>
+    <br>
+
+  </div>
+
   <br>
-  <mat-paginator [pageSizeOptions]="[5, 7, 10]"></mat-paginator>
-</div>
-<br>
-<button mat-flat-button color="warn" (click)="deleteAll()">
-    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;DELETE
-  </button>
-  <br>
-  <br>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 col-sm-5">
+        <button mat-raised-button color="warn" style="font-size: 20px;" [disabled]="delArr.length==0" (click)="deleteAll()">
+          <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete
+        </button>
+      </div>
+    </div>
+  </div>

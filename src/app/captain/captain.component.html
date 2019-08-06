@@ -1,0 +1,195 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <!-- <a class="navbar-brand" href="#">WebSiteName</a> -->
+      <img
+        src="http://localhost:3000/images/logo.jpg"
+        height="60"
+        width="120"
+        style="border-radius: 20px"
+      />&nbsp;&nbsp;&nbsp;&nbsp;
+    </div>
+
+    <ul class="nav navbar-nav">
+      <!-- <li class="active"><button (click)="onAllClick()" class="btn navbar-btn btn-lg" style="background-color: transparent; color: white;" autofocus>All</button></li> -->
+      <li class="active" *ngFor="let item of category">
+        <button
+          [disabled]="(item.CategoryID==firstcatid)?alacateflag:unlimitedflag"
+          (click)="onCategoryClick(item.CategoryID)"
+          class="btn navbar-btn btn-lg"
+          style="background-color: transparent; color: white;"
+        >
+          {{ item.CategoryNAME }}
+        </button>
+      </li>
+      <button class="btn navbar-btn btn-lg" (click)="onPast()" style="background-color: transparent; color: white;">Past Order</button>
+      <button class="btn navbar-btn btn-lg" (click)="onlogout()" style="background-color: transparent; color: white;">Logout</button>
+    </ul>
+    <!--  <form class="navbar-form navbar-left" action="/action_page.php">
+        <div class="form-group">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+       -->
+  </div>
+</nav>
+ <div>
+  <div class="rows">
+      <div class="col-md-2" style="text-align:left;">
+       <mat-label style="font-size : 20px;"><b>Select Table No:</b></mat-label>
+      <br>
+    <mat-form-field>
+        <mat-select  placeholder="Enter Table No" [(ngModel)]="tableNO" name="tableNO" required>
+          <mat-option (click)="onselecttable()" *ngFor="let item of tableNOarr" [value]="item" required>
+            {{item}}
+          </mat-option>
+        </mat-select>
+    </mat-form-field>
+  </div>
+    <div class="col-md-3">
+      <mat-label style="font-size : 20px;"
+        ><b>What Do You Want To Prefer ?</b></mat-label
+      >
+      <br />
+      <div>
+        <mat-radio-group
+          style="font-size: 20px;"
+          class="example-radio-group"
+          [(ngModel)]="type1"
+          name="radio1"
+        >
+          <mat-radio-button (change)="onpreferencechange(item)"
+            class="example-radio-button"
+            *ngFor="let item of serType"
+            [value]="item"
+          >
+            {{ item }} &nbsp;
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="example-container">
+      <mat-label style="font-size: 20px;"><b>TYPE : </b></mat-label>
+      <mat-radio-group
+        style="font-size: 20px;"
+        class="example-radio-group example-full-width"
+        [(ngModel)]="cateType"
+        name="radio"
+      >
+        <mat-radio-button
+          (change)="ontypechange(item)"
+          class="example-radio-button"
+          *ngFor="let item of typearr"
+          [value]="item"
+        >
+          {{ item }} &nbsp;
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </div>
+</div>
+<br />
+<br />
+<div class="row">
+  <div class="col-md-7">
+    <div class="row">
+      <div
+        class="col-md-3"
+        *ngFor="let item of item; let i = index"
+        (click)="onItem(item) && onselecttable()"
+      >
+        <div class="thumbnail" style="height: 200px;width: 200px">
+          <img
+            src="http://localhost:3000/images/ItemImages/{{ item.itemIMG }}"
+            style="height: 100px;width: 100px"
+            alt="..."
+          />
+          <div class="caption">
+            <h4>{{ item.itemNAME }}</h4>
+            <h5>price:{{ item.itemPRICE }}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <table class="table">
+      <br />
+      <thead>
+        <th></th>
+        <th>Item</th>
+        <th>Qty</th>
+        <th></th>
+        <th>Remarks</th>
+        <th>Price</th>
+        <!-- <th>Status</th> -->
+      </thead>
+      <tr *ngFor="let item of itemarr; let i = index">
+        <td style="border-radius: 10px">
+          <img
+            src="http://localhost:3000/images/ItemImages/{{ item.itemIMG }}"
+            style="height: 20px;width: 20px"
+            alt="..."
+          />
+        </td>
+        <td>{{ item.itemNAME }}</td>
+        <td>
+          <select [(ngModel)]="qty[i]" (change)="onselectChange(item, i)">
+            <option *ngFor="let x of qtyarr">{{ x }}</option>
+          </select>
+        </td>
+        <td>
+          <span
+            class="glyphicon glyphicon glyphicon-trash"
+            aria-hidden="true"
+            (click)="onDel(item, i)"
+          ></span>
+        </td>
+        <td><input type="text" [(ngModel)]="remarkarr[i]" /></td>
+        <td>{{ price[i] }}</td>
+        <!-- <td>{{ this.OrderStatus }}</td> -->
+
+      </tr>
+      <br />
+      <br />
+      <br />
+      <br />
+      <tr>
+        <br>
+        <b>Total:</b>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>
+          <b>{{ total }}</b>
+        </td>
+      </tr>
+    </table>
+
+    <button
+      *ngIf="itemarr.length > 0  && tableNO"
+      class="btn btn-success"
+      (click)="onGenrateBill()"
+    >
+    GENERATE BILL
+    </button>
+    <div class="col-md-8">
+    <button
+    *ngIf="itemarr.length > 0  && tableNO"
+    class="btn btn-success"
+    (click)="onAddToOrder()"
+  >
+    SEND TO KITCHEN
+  </button></div>
+
+  </div>
+
+</div>

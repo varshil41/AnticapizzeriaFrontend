@@ -1,0 +1,65 @@
+#include<iostream.h>
+#include<conio.h>
+class table
+{
+	int a[5][5],i,j;
+	public:
+		table()
+		{
+			for(i=0;i<3;i++)
+			{
+				for(j=0;j<3;j++)
+				{
+					a[i][j]=0;
+				}
+			}
+		}
+		table(int n)
+		{
+			for(i=0;i<n;i++)
+			{
+				for(j=0;j<n;j++)
+				{
+					cout<<"\n enter the element ";
+					cin>>a[i][j];
+				}
+			}
+		}
+		void putdata(int n)
+		{
+			cout<<"\n\n";
+			for(i=0;i<n;i++)
+			{
+				for(j=0;j<n;j++)
+				{
+					cout<<"\t"<<a[i][j];
+				}
+				cout<<"\n";
+			}
+		}
+		table(table &t1,table &t2,int n)
+		{
+			for(i=0;i<n;i++)
+			{
+				for(j=0;j<n;j++)
+				{
+					a[i][j]=t1.a[i][j]+t2.a[i][j];
+				}
+			}
+		}
+};
+main()
+{
+	clrscr();
+	table t1,t2,t3,t4;
+	t2=table(3);
+	t2.putdata(3);
+	t4=table(3);
+	t4.putdata(3);
+	t3=table(t2,t4,3);
+	t3.putdata(3);
+	getch();
+	return(0);
+}
+
+

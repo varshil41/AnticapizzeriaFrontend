@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
-import { CategorySerService } from '../../../sevices/category-ser.service';
+import { CategorySerService } from '../../../services/category-ser.service';
 import { Category } from '../category';
 
 @Component({
@@ -13,7 +13,7 @@ export class EditCategoryComponent implements OnInit {
   catname:string;
     id:number;
     catarr:Category[]=[];
-    newcatname:string;
+    newcatname:string='';
   constructor(private _ser:CategorySerService,private _acroute:ActivatedRoute,private _send:Router) { }
 
   ngOnInit() {
@@ -31,14 +31,16 @@ export class EditCategoryComponent implements OnInit {
       alert("You enter the same name");
     }
       else{
+        if(this.newcatname.length>0){
       this._ser.updateCategory(new Category(this.catid,this.newcatname)).subscribe(
       (data:any)=>{
-      this._send.navigate(['/category']);
+      this._send.navigate(['menu/category']);
       }
     );
     }
+    }
   }
   onBack(){
-    this._send.navigate(['/category']);
+    this._send.navigate(['menu/category']);
   }
 }
