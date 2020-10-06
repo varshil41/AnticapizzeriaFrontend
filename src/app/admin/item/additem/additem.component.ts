@@ -111,6 +111,8 @@ selectedFile:File=null;
       }
       onAddPicture(value){
         this.selectedFile=<File>value.target.files[0];
+        console.log(this.selectedFile);
+        console.log(this.selectedFile.name);
       }
       onClickCancel(){
         this._send.navigate(['menu/item']);
